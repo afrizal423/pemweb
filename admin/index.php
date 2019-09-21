@@ -8,15 +8,17 @@
 	$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"><link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
 <script type="text/javascript" src="../jquery-1.11.3-jquery.min.js"></script>
 <title>welcome - <?php print($userRow['user_email']); ?></title>
 </head>
 <body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -30,9 +32,25 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Angular.Js</a></li>
-            <li><a href="#">jQuery</a></li>
-            <li><a href="#">PHP</a></li>
+            <li class="active"><a href="#">Dashboard</a></li>
+            <li class="dropdown">
+                            <a
+                                href="#"
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                                role="button"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                                Data Master<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                            <li>
+                                <a href="kategori">Kategori Buku</a>
+                                </li>
+                                <li>
+                                <a href="rakbuku">Rak Buku</a>
+                                </li>
+                            </ul>
+                        </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             
@@ -59,7 +77,8 @@
         <a href="home.php"><span class="glyphicon glyphicon-home"></span> home</a> &nbsp; 
         <a href="profile.php"><span class="glyphicon glyphicon-user"></span> profile</a></h1>
        	<hr>
-        <p class="h4">Home Page <?php echo json_encode($userRow); ?></p> 
+        <p class="h4">Home Page <?php //echo json_encode($userRow);
+         ?></p> 
     </div>
 </div>
 
