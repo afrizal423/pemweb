@@ -41,6 +41,28 @@ class Admin{
         $query = $this->db->query($sql);
         return $query;
         }
+    public function tmbhRak($namarak)
+        {
+            try
+            {
+                $pk = $this->generateRandomString(10);
+                $stmt = $this->db->prepare("INSERT INTO rak_buku(kode_rak,namarak) 
+                                              VALUES(:uname, :kat)");					  
+                $stmt->bindparam(":uname", $pk);
+                $stmt->bindparam(":kat", $namarak);										  	
+                $stmt->execute();	
+                return $stmt;	
+            }
+            catch(PDOException $e)
+            {
+                echo $e->getMessage();
+            }				
+        }
+    public function hpsRak($kode){
+            $sql = "DELETE FROM rak_buku WHERE kode_rak='$kode'";
+            $query = $this->db->query($sql);
+            return $query;
+            }
     public function addBook($kode, $judul, $pengarang, $penerbit){
         $sql = "INSERT INTO books (kodeBuku, judulBuku, pengarang, penerbit) VALUES('$kode', '$judul', '$pengarang', '$penerbit')";
         $query = $this->db->query($sql);
@@ -69,6 +91,11 @@ class Admin{
      
     public function showBooks(){
         $sql = "SELECT * FROM kategori";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    public function showRak(){
+        $sql = "SELECT * FROM rak_buku";
         $query = $this->db->query($sql);
         return $query;
     }
