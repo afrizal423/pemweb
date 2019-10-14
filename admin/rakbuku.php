@@ -35,14 +35,62 @@ if($kt->hpsRak($_GET['delete'])){
 <?php 
 include_once('view/header.php');
 ?>
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START MAIN -->
+    <div id="main">
+      <!-- START WRAPPER -->
+      <div class="wrapper">
+      <?php 
+include_once('view/menu.php');
+?>
 
-        <div class="clearfix"></div>
-        <div class="container-fluid" style="margin-top:80px;">
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+        <div id="breadcrumbs-wrapper">
+              <!-- Search for small screen -->
+              <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+                <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Search">
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col s10 m6 l6">
+                    <h5 class="breadcrumbs-title">Data Rak Buku</h5>
+                    <ol class="breadcrumbs">
+                      <li><a href="../admin">Dashboard</a></li>
+                      <li class="active">Rak Buku</li>
+                    </ol>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <!--card stats start-->
+            <div id="card-stats">
+                <!--start container-->
             <div class="container">
-                <label class="h5">welcome :
-                    <?php print($userRow['user_name']); ?><br>Silahkan masukkan data kategori</label>
-                <hr>
-                <?php
+              <div class="section">
+                  <div class="row">
+                    <div class="col s12">
+                    <form method="post" action="rakbuku">
+                    <table>
+                        <tr>
+                            <td>Nama Rak Buku</td>
+                            <td><input type="text" name="namarak"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                            <input type="submit" value="SIMPAN" name="kirim" class="waves-effect waves-light  btn" ></td>
+                        </tr>
+                    </table>
+                </form>
+                    </div>
+                    <div class="row">
+                    <?php
 			if(isset($error))
 			{
 			 	foreach($error as $error)
@@ -72,21 +120,12 @@ include_once('view/header.php');
                 </div>
                 <?php
 			} ?>
-                <form method="post" action="rakbuku">
-                    <table>
-                        <tr>
-                            <td>Nama Rak Buku</td>
-                            <td><input type="text" name="namarak"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" value="SIMPAN" name="kirim"></td>
-                        </tr>
-                    </table>
-                </form>
+                        
+                    </div>
+                </div>
             </div>
             <div class="container">
-                <h2>List Rak Buku</h2>
+            <h4 class="header">Data Barang</h4>
                 <table class="table">
                     <tr>
                         <td>Kode Rak</td>
@@ -107,7 +146,22 @@ echo "
 ?>
                 </table>
             </div>
-        </div>
+
+            
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+
+      </div>
+      <!-- END WRAPPER -->
+    </div>
+    <!-- END MAIN -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+
+        
         <?php 
 include_once('view/footer.php');
 ?>
