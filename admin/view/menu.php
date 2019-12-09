@@ -39,12 +39,21 @@
               <ul class="collapsible" data-collapsible="accordion">
                   
                 <li class="bold">
-                  <a href="index.html" class="waves-effect waves-cyan">
+                  <a href="../admin" class="waves-effect waves-cyan">
                       <i class="material-icons">pie_chart_outlined</i>
                       <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">work</i>Data Master</a>
+                <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">account_circle</i>Data Akun dan Pegawai</a>
+                  <div class="collapsible-body">
+                      <ul>
+                          <li><a href="buku">List Pegawai</a>
+                          </li>
+                          <li><a href="kategori">List Akun</a>
+                      </ul>
+                  </div>
+              </li>
+                <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">work</i>Data Buku dan Rak</a>
                   <div class="collapsible-body">
                       <ul>
                           <li><a href="buku">Buku</a>
@@ -56,10 +65,29 @@
                       </ul>
                   </div>
               </li>
+              <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">people</i>Data Member</a>
+                  <div class="collapsible-body">
+                      <ul>
+                          <li><a href="listmember">List Member</a>
+                          </li>
+                          <li><a href="kategori">List Mahasiswa</a>
+                      </ul>
+                  </div>
+              </li>
+              <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">import_export</i>Transaksi</a>
+                  <div class="collapsible-body">
+                      <ul>
+                          <li><a href="buku">Peminjaman</a>
+                          </li>
+                          <li><a href="kategori">Pengembalian</a>
+                      </ul>
+                  </div>
+              </li>
+              <!--
                 <li class="bold">
-                  <a href="admin.html" class="waves-effect waves-cyan">
+                  <a href="member" class="waves-effect waves-cyan">
                       <i class="material-icons">account_circle</i>
-                      <span class="nav-text">Admin</span>
+                      <span class="nav-text">Member</span>
                     </a>
                 </li>
                 <li class="bold">
@@ -68,12 +96,12 @@
                         <span class="nav-text">Peminjaman</span>
                     </a>
                   </li>
-                  <li class="bold">
+                  <!--<li class="bold">
                       <a href="transaksi.html" class="waves-effect waves-cyan">
                           <i class="material-icons">shopping_cart</i>
                           <span class="nav-text">Transaksi</span>
                       </a>
-                  </li>
+                  </li>-->
               </ul>
             </li>
           </ul>

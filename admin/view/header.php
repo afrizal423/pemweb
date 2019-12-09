@@ -25,6 +25,29 @@
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
     <link href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
     <link href="../assets/vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+    <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("livesearch").innerHTML=this.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","admin/livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
   </head>
   <body>
     <!-- Start Page Loading -->
@@ -44,7 +67,7 @@
             <ul class="left">
               <li>
                 <h1 class="logo-wrapper">
-                  <a href="index.html" class="brand-logo darken-1">
+                  <a href="../admin" class="brand-logo darken-1">
                     <img src="../assets/images/logo/logo.png" alt="materialize logo" style="width:35px;height:35px;">
                     <span class="logo-text hide-on-med-and-down">Giri Pustaka</span>
                   </a>

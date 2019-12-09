@@ -34,13 +34,62 @@ if($kt->hpsKategori($_GET['delete'])){
 <?php 
 include_once('view/header.php');
 ?>
-        <div class="clearfix"></div>
-        <div class="container-fluid" style="margin-top:80px;">
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START MAIN -->
+    <div id="main">
+      <!-- START WRAPPER -->
+      <div class="wrapper">
+      <?php 
+include_once('view/menu.php');
+?>
+
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+        <div id="breadcrumbs-wrapper">
+              <!-- Search for small screen -->
+              <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+                <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Search">
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col s10 m6 l6">
+                    <h5 class="breadcrumbs-title">Data Kategori Buku</h5>
+                    <ol class="breadcrumbs">
+                      <li><a href="../admin">Dashboard</a></li>
+                      <li class="active">Kategori Buku</li>
+                    </ol>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <!--breadcrumbs end-->
+          <!--start container-->
+          <div class="container">
+            <!--card stats start-->
+            <div id="card-stats">
+                <!--start container-->
             <div class="container">
-                <label class="h5">welcome :
-                    <?php print($userRow['user_name']); ?><br>Silahkan masukkan data kategori</label>
-                <hr>
-                <?php
+              <div class="section">
+                  <div class="row">
+                    <div class="col s12">
+                    <form method="post" action="kategori">
+                    <table>
+                        <tr>
+                            <td>Nama Kategori Buku</td>
+                            <td><input type="text" name="namakategori"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                            <input type="submit" value="SIMPAN" name="kirim" class="waves-effect waves-light  btn" ></td>
+                        </tr>
+                    </table>
+                </form>
+                    </div>
+                    <div class="row">
+                    <?php
 			if(isset($error))
 			{
 			 	foreach($error as $error)
@@ -70,25 +119,16 @@ include_once('view/header.php');
                 </div>
                 <?php
 			} ?>
-                <form method="post" action="kategori">
-                <table style="margin:20px auto;">
-                        <tr>
-                            <td>Kategori Buku</td>
-                            <td><input type="text" name="namakategori"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" value="SIMPAN" name="kirim"></td>
-                        </tr>
-                    </table>
-                </form>
+                        
+                    </div>
+                </div>
             </div>
             <div class="container">
-                <h2>List Kategori Buku</h2>
+            <h4 class="header">Data Barang</h4>
                 <table class="table">
                     <tr>
-                        <td>Kode Kategori</td>
-                        <td>Nama Kategori</td>
+                        <td>Kode Kategori Buku</td>
+                        <td>Nama Kategori BUku</td>
                         <td></td>
                     </tr>
                     <?php
@@ -99,13 +139,27 @@ echo "
 <tr>
 <td>$data->id_kategori</td>
 <td>$data->namakategori</td>
-<td><a class='btn btn-danger' href='kategori?delete=$data->id_kategori'>Delete</a></td>
+<td><a class='btn btn-danger' href='rakbuku?delete=$data->id_kategori'>Delete</a></td>
 </tr>";
 };
 ?>
                 </table>
             </div>
-        </div>
+
+            
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+          </div>
+          <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+
+      </div>
+      <!-- END WRAPPER -->
+    </div>
+    <!-- END MAIN -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+
         <?php 
 include_once('view/footer.php');
 ?>

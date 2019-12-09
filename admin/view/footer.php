@@ -25,5 +25,11 @@
     <script type="text/javascript" src="../assets/js/plugins.js"></script>
     <!--custom-script.js - Add your own theme custom JS-->
     <script type="text/javascript" src="../assets/js/custom-script.js"></script>
+
+    <script>
+     $(document).ready(function(){
+    $('.modal').modal();
+  });
+    </script>
   </body>
 </html>
