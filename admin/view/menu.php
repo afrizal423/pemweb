@@ -1,3 +1,14 @@
+<?php
+	require_once("../session.php");
+    require_once("../class.user.php");
+    require_once("class.admin.php");
+
+    $kt = new Admin();
+    $query =  $kt->runQuery("select * from users
+    inner join pegawai using(id_pegawai) WHERE user_id=:user_id");
+    $query->execute(array(":user_id"=>$_SESSION['user_session'] ));
+    $data = $query->fetchObject(); //ambil data
+    ?>
 <!-- START LEFT SIDEBAR NAV-->
 <aside id="left-sidebar-nav">
           <ul id="slide-out" class="side-nav fixed leftside-navigation">
@@ -30,7 +41,7 @@
                         <i class="material-icons">keyboard_tab</i> Logout</a>
                     </li>
                   </ul>
-                  <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown-nav">Afrizal<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                  <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown-nav"><?php echo $data->nama_pegawai ?><i class="mdi-navigation-arrow-drop-down right"></i></a>
                   <p class="user-roal">Administrator</p>
                 </div>
               </div>
@@ -44,7 +55,7 @@
                       <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">account_circle</i>Data Akun dan Pegawai</a>
+                <!-- <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">account_circle</i>Data Akun dan Pegawai</a>
                   <div class="collapsible-body">
                       <ul>
                           <li><a href="buku">List Pegawai</a>
@@ -52,7 +63,7 @@
                           <li><a href="kategori">List Akun</a>
                       </ul>
                   </div>
-              </li>
+              </li> -->
                 <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">work</i>Data Buku dan Rak</a>
                   <div class="collapsible-body">
                       <ul>
@@ -70,16 +81,16 @@
                       <ul>
                           <li><a href="listmember">List Member</a>
                           </li>
-                          <li><a href="kategori">List Mahasiswa</a>
+                          <!-- <li><a href="kategori">List Mahasiswa</a> -->
                       </ul>
                   </div>
               </li>
               <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="material-icons">import_export</i>Transaksi</a>
                   <div class="collapsible-body">
                       <ul>
-                          <li><a href="buku">Peminjaman</a>
+                          <li><a href="listpeminjaman">Peminjaman</a>
                           </li>
-                          <li><a href="kategori">Pengembalian</a>
+                          <!-- <li><a href="kategori">Pengembalian</a> -->
                       </ul>
                   </div>
               </li>

@@ -10,6 +10,9 @@ class Admin{
     function generateRandomString($length) {
         return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
     }
+    function RandomPeminjaman($length) {
+        return substr(str_shuffle(str_repeat($x='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+    }
     public function redirect($url)
 	{
 		header("Location: $url");
@@ -176,7 +179,25 @@ class Admin{
             return "Success";
         }
     }
-     
+    public function saveBuku($id_detail,$id_buku,$waktu)
+        {
+            try
+            {
+                $pk = $this->generateRandomString(10);
+                $stmt = $this->db->prepare("INSERT INTO peminjaman(id_peminjaman,id_detail,id_buku,waktu) 
+                                              VALUES(:uname, :idmhs, :alamat, :notlp)");					  
+                $stmt->bindparam(":uname", $pk);
+                $stmt->bindparam(":idmhs", $id_detail);
+                $stmt->bindparam(":alamat", $id_buku);										  	
+                $stmt->bindparam(":notlp", $waktu);										  	
+                $stmt->execute();	
+                return $stmt;	
+            }
+            catch(PDOException $e)
+            {
+                echo $e->getMessage();
+            }				
+        }
     public function showBooks(){
         $sql = "SELECT * FROM kategori";
         $query = $this->db->query($sql);
@@ -202,5 +223,37 @@ class Admin{
         $query = $this->db->query($sql);
         return $query;
         }
+        public function hilangkanBuku($kode,$iddetil){
+            $sql = "DELETE FROM peminjaman WHERE id_buku='$kode' and id_detail='$iddetil'";
+            $query = $this->db->query($sql);
+            return $query;
+            }
+        public function showDetail(){
+            $sql = "select * from detail_peminjaman
+            inner join anggota using(id_anggota)
+            inner join mahasiswa using(id_mhs)";
+            $query = $this->db->query($sql);
+            return $query;
+        }
+    public function insertPinjam($id_detail,$id_anggota,$id_pegawai,$tgl_pinjam)
+        {
+            try
+            {
+                $stmt = $this->db->prepare("INSERT INTO detail_peminjaman(id_detail,id_anggota,id_pegawai,tglpinjam) 
+                                              VALUES(:uname, :ang, :peg, :tgl)");					  
+                $stmt->bindparam(":uname", $id_detail);
+                $stmt->bindparam(":ang", $id_anggota);
+                $stmt->bindparam(":peg", $id_pegawai);
+                $stmt->bindparam(":tgl", $tgl_pinjam);
+			  	
+                $stmt->execute();	
+                return $stmt;	
+            }
+            catch(PDOException $e)
+            {
+                echo $e->getMessage();
+            }				
+        }
     }
+    
     ?>

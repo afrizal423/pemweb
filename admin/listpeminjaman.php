@@ -10,23 +10,30 @@
     $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
     
     if(isset($_POST['kirim'])){
-        $nama_mhs = strip_tags($_POST['nama_mhs']);
-        $npm_mhs = strip_tags($_POST['npm_mhs']);
-        $jurusan = strip_tags($_POST['jurusan']);
-        $fakultas = strip_tags($_POST['fakultas']);
-        $alamat_anggota = strip_tags($_POST['alamat_anggota']);
-        $notlp_anggota = strip_tags($_POST['notlp_anggota']);
+        $tglpinjam = strip_tags($_POST['tglpinjam']);
+        $npm_mhs = strip_tags($_POST['npm']);
 	
 	// if($judulbuku=="")	{
 	// 	$error[] = "Kosong !";	
     // } 
     $kt = new Admin();
-    if($kt->tmbhMhs($nama_mhs,$npm_mhs,$jurusan,$fakultas)){
-        $query =  $kt->runQuery("select * from mahasiswa where npm_mhs=:npm");
-        $query->execute(array(":npm"=>$npm_mhs));
-        $data = $query->fetchObject();
-        $kt->tmbhAnggota($data->id_mhs,$alamat_anggota,$notlp_anggota);	
-        $kt->redirect('listmember?sukses');
+    $query2 =  $kt->runQuery("select * from users
+    inner join pegawai using(id_pegawai) WHERE user_id=:user_id");
+    $query2->execute(array(":user_id"=>$_SESSION['user_session'] ));
+    $data2 = $query2->fetchObject(); //ambil data
+
+    $kt = new Admin();
+    $query =  $kt->runQuery("select * from anggota
+    inner join mahasiswa using(id_mhs)
+    where npm_mhs=:npm");
+    $query->execute(array(":npm"=>$npm_mhs));
+    $data = $query->fetchObject(); //ambil data
+    $random = $kt->RandomPeminjaman(10);
+    
+    
+
+    if($kt->insertPinjam($random,$data->id_anggota,$data2->id_pegawai,$tglpinjam)){
+        echo "<script>location.href='pinjam?iddetil=".$random." ';</script>";
         //echo json_encode($data->id_mhs);
     }
        /* $Lib = new Library();
@@ -36,9 +43,9 @@
         }
         }*/} else if(isset($_GET['delete'])){
             $kt = new Admin();
-if($kt->hpsRak($_GET['delete'])){	
-    $kt->redirect('rakbuku?hapus');
-}
+// if($kt->hpsRak($_GET['delete'])){	
+     $kt->redirect('rakbuku?hapus');
+// }
 }
 ?>
 
@@ -60,23 +67,23 @@ include_once('view/menu.php');
         <!-- START CONTENT -->
         <section id="content">
             <div id="breadcrumbs-wrapper">
-                <!-- Search for small screen -->
-                <!-- <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+                <!-- Search for small screen 
+                <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
                     <input
                         type="text"
                         name="Search"
                         class="header-search-input z-depth-2"
                         placeholder="Search">
-                </div> -->
+                </div>-->
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6">
-                            <h5 class="breadcrumbs-title">List Member Perpustakaan</h5>
+                            <h5 class="breadcrumbs-title">List Peminjaman Perpustakaan</h5>
                             <ol class="breadcrumbs">
                                 <li>
                                     <a href="../admin">Dashboard</a>
                                 </li>
-                                <li class="active">List Member</li>
+                                <li class="active">List Peminjaman</li>
                             </ol>
                         </div>
 
@@ -106,44 +113,28 @@ include_once('view/menu.php');
                                                 <i class="material-icons left">add</i>
                                                 Add Data</a>
                                              Modal Trigger -->
-                                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons left">add</i>Tambah Member</a>
+                                            <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons left">add</i>Tambah Peminjaman</a>
 
                                             <!-- Modal Structure -->
                                             <div id="modal1" class="modal">
                                                 <div class="modal-content">
-                                                    <h4>Tambah Buku</h4>
-                                                    <form method="post" action="listmember">
+                                                    <h4>Tambah Peminjaman</h4>
+                                                    <form method="post" action="listpeminjaman">
                                                         <table>
                                                             <tr>
-                                                                <td>Nama</td>
-                                                                <td><input type="text" name="nama_mhs"></td>
+                                                                <td>Tanggal Pinjam</td>
+                                                                <td><input type="date" name="tglpinjam" value="<?php date_default_timezone_set("Asia/Jakarta"); echo date('Y-m-d');?>"></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>NPM</td>
-                                                                <td><input type="text" name="npm_mhs"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Program Studi</td>
-                                                                <td><input type="text" name="jurusan"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Fakultas</td>
-                                                                <td><input type="text" name="fakultas"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Alamat</td>
-                                                                <td><input type="text" name="alamat_anggota"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>No Telp</td>
-                                                                <td><input type="text" name="notlp_anggota"></td>
+                                                                <td>NPM mahasiswa</td>
+                                                                <td><input type="text" name="npm"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td></td>
                                                                 <td>
                                                                     <input
                                                                         type="submit"
-                                                                        value="SIMPAN"
+                                                                        value="Next"
                                                                         name="kirim"
                                                                         class="waves-effect waves-light  btn"></td>
                                                             </tr>
@@ -196,21 +187,27 @@ include_once('view/menu.php');
                     </div>
                 </div>
                 <div class="container">
-                    <h4 class="header">Data Member</h4>
+                    <h4 class="header">Data Peminjaman</h4>
                     <table class="table">
                         <tr>
                         <td>No</td>                            
                             <td>NPM</td>
                             <td>Nama</td>
-                            <td>jurusan</td>
-                            <td>Fakultas</td> 
-                            <td>Alamat</td>
-                            <td>Telp</td>
+                            <td>Tanggal Pinjam</td>
+                            <td>Tanggal Kembali</td> 
+                            <td>Denda</td>
+                            <td>Keterangan</td>
                             <td></td>
                         </tr>
                         <?php
                     $kt = new Admin();
-$show = $kt->showMember();
+    $query =  $kt->runQuery("select npm_mhs, nama_mhs from detail_peminjaman
+    inner join anggota using(id_anggota)
+    inner join mahasiswa using(id_mhs)");
+    $query->execute();
+    $data2 = $query->fetch(PDO::FETCH_OBJ);
+
+$show = $kt->showDetail();
 $no = 0;
 while($data = $show->fetch(PDO::FETCH_OBJ)){
     $no++;
@@ -219,12 +216,12 @@ echo "
 <td>$no</td>
 <td>$data->npm_mhs</td>
 <td>$data->nama_mhs</td>
-<td>$data->jurusan</td>
-<td>$data->fakultas</td>
-<td>$data->alamat_anggota</td>
-<td>$data->notlp_anggota</td>
+<td>$data->tglpinjam</td>
+<td>$data->tglkembali</td>
+<td>$data->denda</td>
+<td>$data->ket_buku</td>
 
-<!--<td><a class='btn btn-danger' href='rakbuku?delete=$data->id_mhs'>Delete</a></td>-->
+<td><a class='btn blue' href='pinjam?iddetil=$data->id_detail'>Detail</a><a class='red btn btn-danger' href='listpeminjaman?delete=$data->id_detail'>Delete</a></td>
 </tr>";
 };
 ?>

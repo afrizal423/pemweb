@@ -3,7 +3,7 @@
 	require_once("../class.user.php");
 	$auth_user = new USER();
 	$user_id = $_SESSION['user_session'];
-	$stmt = $auth_user->runQuery("SELECT * FROM users inner join pegawai using (nama_pegawai) WHERE users.user_id=:user_id");
+	$stmt = $auth_user->runQuery("SELECT * FROM users inner join pegawai using (id_pegawai) WHERE users.user_id=:user_id");
 	$stmt->execute(array(":user_id"=>$user_id));
   $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 ?>

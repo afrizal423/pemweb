@@ -40,7 +40,7 @@ class USER
 		try
 		{
 			$stmt = $this->conn->prepare("select user_id, user_name, user_email, user_pass, nip_pegawai from users 
-			join pegawai using(nama_pegawai) WHERE user_name=:uname OR nip_pegawai=:umail ");
+			join pegawai using(id_pegawai) WHERE user_name=:uname OR nip_pegawai=:umail ");
 			$stmt->execute(array(':uname'=>$uname, ':umail'=>$umail));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() == 1)
