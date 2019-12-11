@@ -15,8 +15,61 @@
     <!-- ================================================
     Scripts
     ================================================ -->
+
     <!-- jQuery Library -->
     <script type="text/javascript" src="../assets/vendors/jquery-3.2.1.min.js"></script>
+    <script>
+    // //$(document).ready(function(){
+    // var keyword = document.getElementById('cari');
+    // keyword.addEventListener('keyup', function() {
+    //         // $.ajax({
+    //         //     url:"cari-live.php",
+    //         //     method:"post",
+    //         //     data:{ search:$(this).val() },
+    //         //     //dataType:"text",
+    //         //     cache: false,
+    //         //     success:function(data)
+    //         //     {
+    //         //         $('#result').html(data);
+    //         //     }
+    //         // });
+    //         alert('ok');
+       
+    // });
+//});
+$(document).ready(function(){
+    $('#cari').keyup(function(){
+        var txt = $(this).val();
+        var id = "<?php echo $data3->id_detail; ?>";
+        if (txt != '') {
+            $('#result').html('');
+            $.ajax({
+                url:"cari-live.php",
+                method:"post",
+                data:{ search:txt, iddetail:id },
+                dataType:"text",
+                success:function(data)
+                {
+                    $('#result').html(data);
+                }
+            });
+        } else {
+          $('#result').html('');
+          //  $('#result').html('');
+          //   $.ajax({
+          //       url:"cari-live.php",
+          //       method:"post",
+          //       data:{ search:txt },
+          //       dataType:"text",
+          //       success:function(data)
+          //       {
+          //           $('#result').html(data);
+          //       }
+          //   });
+        }
+    });
+});
+</script>
     <!--materialize js-->
     <script type="text/javascript" src="../assets/js/materialize.min.js"></script>
     <!--scrollbar-->

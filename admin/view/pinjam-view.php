@@ -85,7 +85,7 @@ include_once('view/menu.php');
                                             <!-- Modal Structure -->
                                             <div id="modal1" class="modal">
                                                 <div class="modal-content">
-                                                    <h4>Cari Buku</h4>
+                                                    <h4>Cari Bauku</h4>
                                                     <form method="post" action="pinjam">
                                                         <table><tr>
                                                                 <td>Cari Berdasarkan</td>

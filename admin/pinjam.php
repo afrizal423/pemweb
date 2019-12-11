@@ -99,13 +99,14 @@ include_once('view/menu.php');
         <section id="content">
             <div id="breadcrumbs-wrapper">
                 <!-- Search for small screen -->
-                <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+                <!-- <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
                     <input
                         type="text"
                         name="Search"
+                        id="Search"
                         class="header-search-input z-depth-2"
                         placeholder="Search">
-                </div>
+                </div> -->
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6">
@@ -132,10 +133,12 @@ include_once('view/menu.php');
                         <div class="section">
                             <div class="row">
                                 <div class="col s12">
-                                    <!-- <div class="input-field col s12">
+                                    <div class="input-field col s12">
                                         <i class="material-icons prefix">search</i>
-                                        <input type="text" name="Search" placeholder="Search"/>
-                                    </div> -->
+                                        <input type="text" name="Search" id="cari" placeholder="Search"/>
+                                    </div>
+                                    <!-- <input type="text" id="cari" class="form-control mt-3 mb-5" placeholder="serach name..."> -->
+                                    <div id="result">s</div>
                                 </div>
                                 <div class="row">
                                     <div class="container">
@@ -349,6 +352,7 @@ echo "
 <!-- END MAIN -->
 <!--
 //////////////////////////////////////////////////////////////////////////// -->
+
 <?php include_once('view/footer.php');
 //}?>
 
